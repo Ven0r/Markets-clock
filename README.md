@@ -10,6 +10,13 @@ own time zone. It is a native Windows port of the Market Clock TradingView indic
 - Exchange holidays are **not** included (same as the Pine script), so on a holiday a market may show
   as open when it is actually shut.
 
+## Download
+
+Get `MarketClock.exe` from the [latest release](https://github.com/Ven0r/Markets-clock/releases/latest).
+It's a single file with nothing to install: put it somewhere permanent (for example
+`C:\Tools\MarketClock\`) and double-click it. If Windows warns you about it, see
+[If Windows warns you](#if-windows-warns-you).
+
 ## Who it's for
 
 - **Traders and investors** who want to see at a glance which markets are live while they work, without
@@ -36,13 +43,13 @@ Frankfurt (Xetra), Paris (Euronext, off by default), London (LSE), New York (NYS
 - **Windows 10 and Windows 11.** Windows 11 adds rounded corners and a themed border; the rest works the
   same on both.
 - **Not macOS or Linux.** The code is Windows-only. Building it on those systems produces a program that
-  only prints a message saying it is a Windows app.
+  only prints a message saying it is a Windows app. On Linux, the Windows exe does run under
+  [Wine](https://www.winehq.org/), but without the one-desktop feature or Start with Windows.
 - Runs on the Windows desktop itself. It is not a WSL/Linux GUI app.
 
 ## Using it
 
-Double-click `MarketClock.exe`. The first time, Windows SmartScreen may say "Windows protected your PC"
-because the app isn't code-signed: click **More info → Run anyway**.
+Double-click `MarketClock.exe`. It opens in the top-right corner of your screen.
 
 - **Move it:** drag it anywhere.
 - **Options:** right-click the widget (or the tray icon). Everything from the Pine inputs is there:
@@ -68,6 +75,25 @@ Settings are saved to `%APPDATA%\MarketClock\settings.json`.
 
 Tip: put the exe somewhere permanent (e.g. `C:\Tools\MarketClock\`) *before* turning on
 "Start with Windows", since that setting points at the exe's current location.
+
+## If Windows warns you
+
+Market Clock is new and isn't code-signed, so Windows has no reputation for it and may warn you the
+first time:
+
+- **"Windows protected your PC"** (SmartScreen): click **More info → Run anyway**.
+- **Microsoft Defender reports a threat, or the exe disappears:** Defender's machine-learning scanner
+  sometimes flags unsigned programs built with Go. To allow it, open **Windows Security → Virus &
+  threat protection → Protection history**, select the Market Clock entry, then **Actions → Restore**
+  (or **Allow on device**). Then add an exclusion so later scans leave it alone: **Virus & threat
+  protection → Manage settings → Exclusions → Add or remove exclusions → Add an exclusion → File**,
+  and pick `MarketClock.exe`.
+- **Smart App Control blocks it:** Smart App Control can't make an exception for a single app, so
+  the widget can't run while it's turned on.
+
+The app makes no network connections. It only reads and writes its own settings file and, if you
+turn the option on, its Start with Windows entry. If you'd rather not run a downloaded exe, build it
+yourself from this source (below).
 
 ## Building from source
 
